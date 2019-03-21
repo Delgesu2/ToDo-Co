@@ -1,6 +1,5 @@
 ToDoList
 ========
+# ToDo-Co
+Projet n°8 : Améliorez une application existante !
 
-Base du projet #8 : Améliorez un projet existant
-
-https://openclassrooms.com/projects/ameliorer-un-projet-existant-1
