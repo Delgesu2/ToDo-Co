@@ -4,6 +4,14 @@ parameters:
 #    parameter_name: value
 
 services:
+    AppBundle\Fixtures\UserFixtures:
+        tags:
+          - { name: 'doctrine.fixture.orm' }
+
+    AppBundle\Fixtures\TaskFixtures:
+        tags:
+          - { name: 'doctrine.fixture.orm' }
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
