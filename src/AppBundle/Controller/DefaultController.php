@@ -2,16 +2,45 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 
-class DefaultController extends Controller
+/**
+ * @Route(
+ *     path="/",
+ *     name="homepage",
+ *     methods={"GET"}
+ * )
+ */
+class DefaultController
 {
     /**
-     * @Route("/", name="homepage")
+     * @var Environment
      */
-    public function indexAction()
+    private $twig;
+
+    /**
+     * DefaultController constructor.
+     *
+     * @param Environment $twig
+     */
+    public function __construct(Environment $twig)
     {
-        return $this->render('default/index.html.twig');
+        $this->twig = $twig;
+    }
+
+    /**
+     * @return Response
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function __invoke()
+    {
+        return new Response(
+            $this->twig->render('default/index.html.twig')
+        );
     }
 }

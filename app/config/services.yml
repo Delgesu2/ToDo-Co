@@ -4,6 +4,11 @@ parameters:
 #    parameter_name: value
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
     AppBundle\Fixtures\UserFixtures:
         tags:
           - { name: 'doctrine.fixture.orm' }
@@ -11,6 +16,10 @@ services:
     AppBundle\Fixtures\TaskFixtures:
         tags:
           - { name: 'doctrine.fixture.orm' }
+
+    AppBundle\Controller\:
+        resource: '../../src/AppBundle/Controller'
+        tags: ['controller.service_arguments']
 
 #    service_name:
 #        class: AppBundle\Directory\ClassName
