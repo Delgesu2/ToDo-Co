@@ -2,31 +2,31 @@
 /**
  * Created by PhpStorm.
  * User: ronsard
- * Date: 23/04/19
- * Time: 20:53
+ * Date: 24/04/19
+ * Time: 18:25
  */
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Task;
-use AppBundle\Form\Handler\TaskCreateHandler;
-use AppBundle\Form\TaskType;
+use Symfony\Component\Routing\Annotation\Route;
+use AppBundle\Entity\User;
+use AppBundle\Form\Handler\UserEditHandler;
+use AppBundle\Form\UserType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
 /**
  * @Route(
- *     path="/tasks/create",
- *     name="task_create",
+ *     path="/users/{id}/edit",
+ *     name="user_edit",
  *     methods={"GET", "POST"}
  *     )
  */
-class TaskCreateController
+class UserEditController
 {
     /**
      * @var Environment
@@ -39,7 +39,7 @@ class TaskCreateController
     private $formFactory;
 
     /**
-     * @var TaskCreateHandler
+     * @var UserEditHandler
      */
     private $handler;
 
@@ -49,20 +49,19 @@ class TaskCreateController
     private $urlGenerator;
 
     /**
-     * TaskCreateController constructor.
+     * UserEditController constructor.
      *
      * @param Environment $twig
      * @param FormFactoryInterface $formFactory
-     * @param TaskCreateHandler $handler
+     * @param UserEditHandler $handler
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         Environment           $twig,
         FormFactoryInterface  $formFactory,
-        TaskCreateHandler $handler,
+        UserEditHandler       $handler,
         UrlGeneratorInterface $urlGenerator
-    )
-    {
+    ) {
         $this->twig         = $twig;
         $this->formFactory  = $formFactory;
         $this->handler      = $handler;
@@ -71,6 +70,7 @@ class TaskCreateController
 
     /**
      * @param Request $request
+     * @param User $user
      *
      * @return RedirectResponse|Response
      *
@@ -78,24 +78,28 @@ class TaskCreateController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function __invoke(Request $request)
+    public function __invoke(
+        Request $request,
+        User    $user
+    )
     {
-        $task = new Task();
+        $form = $this->formFactory->create(UserType::class, $user)
+            ->handleRequest($request);
 
-        $form = $this->formFactory->create(TaskType::class, $task)
-                                  ->handleRequest($request);
+        if ($this->handler->handle($form, $user)){
 
-        if ($this->handler->handle($form, $task)){
-            return new RedirectResponse($this->urlGenerator->generate('task_list'));
+            return new RedirectResponse(
+                $this->urlGenerator->generate('user_list')
+            );
         }
 
         return new Response(
-            $this->twig->render('task/create.html.twig', [
-                'form'=>$form->createView()
+            $this->twig->render('user/edit.html.twig', [
+                'form' => $form->createView(),
+                'user' => $user
             ])
         );
 
     }
-
 
 }

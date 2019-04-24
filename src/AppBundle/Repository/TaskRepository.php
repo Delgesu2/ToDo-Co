@@ -15,9 +15,9 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 /**
  * Class TaskRepository
  *
- * @package AppBundle\Repository
- *
  * @method Task[] findAll()
+ *
+ * @package AppBundle\Repository
  */
 class TaskRepository extends ServiceEntityRepository
 {
@@ -37,6 +37,23 @@ class TaskRepository extends ServiceEntityRepository
     public function save(Task $task)
     {
         $this->_em->persist($task);
+        $this->_em->flush();
+    }
+
+    /**
+     * Update
+     */
+    public function update()
+    {
+        $this->_em->flush();
+    }
+
+    /**
+     * @param $task
+     */
+    public function delete($task)
+    {
+        $this->_em->remove($task);
         $this->_em->flush();
     }
 }

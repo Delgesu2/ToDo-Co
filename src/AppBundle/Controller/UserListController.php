@@ -2,28 +2,28 @@
 /**
  * Created by PhpStorm.
  * User: ronsard
- * Date: 23/04/19
- * Time: 18:36
+ * Date: 24/04/19
+ * Time: 17:03
  */
 
 namespace AppBundle\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
-use AppBundle\Repository\TaskRepository;
+use AppBundle\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 /**
  * @Route(
- *     path="/tasks",
- *     name="task_list",
+ *     path="/users",
+ *     name="user_list",
  *     methods={"GET"}
- * )
+ *     )
  */
-class TaskListController
+class UserListController
 {
     /**
-     * @var TaskRepository
+     * @var UserRepository
      */
     private $repository;
 
@@ -33,15 +33,14 @@ class TaskListController
     private $twig;
 
     /**
-     * TaskListController constructor.
+     * UserListController constructor.
      *
-     * @param TaskRepository $repository
+     * @param UserRepository $repository
      * @param Environment $twig
      */
     public function __construct(
-        TaskRepository $repository,
-        Environment    $twig
-    )
+        UserRepository $repository,
+        Environment    $twig)
     {
         $this->repository = $repository;
         $this->twig       = $twig;
@@ -58,10 +57,9 @@ class TaskListController
     {
         return new Response(
             $this->twig->render(
-                'task/list.html.twig',[
-                    'tasks' => $this->repository->findAll()
+                'user/list.html.twig', [
+                    'users' => $this->repository->findAll()
                 ])
         );
     }
-
 }

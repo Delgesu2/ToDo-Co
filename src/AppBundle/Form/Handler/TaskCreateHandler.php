@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class TaskTypeCreateHandler
+class TaskCreateHandler
 {
     /**
      * @var SessionInterface
@@ -33,7 +33,7 @@ class TaskTypeCreateHandler
     private $tokenStorage;
 
     /**
-     * TaskTypeCreateHandler constructor.
+     * TaskCreateHandler constructor.
      *
      * @param SessionInterface $session
      * @param TaskRepository $repository

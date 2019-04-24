@@ -2,31 +2,31 @@
 /**
  * Created by PhpStorm.
  * User: ronsard
- * Date: 23/04/19
- * Time: 20:53
+ * Date: 24/04/19
+ * Time: 13:19
  */
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\Task;
-use AppBundle\Form\Handler\TaskCreateHandler;
+use AppBundle\Form\Handler\TaskEditHandler;
 use AppBundle\Form\TaskType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
 /**
  * @Route(
- *     path="/tasks/create",
- *     name="task_create",
+ *     path="/tasks/{id}/edit",
+ *     name="task_edit",
  *     methods={"GET", "POST"}
  *     )
  */
-class TaskCreateController
+class TaskEditController
 {
     /**
      * @var Environment
@@ -39,7 +39,7 @@ class TaskCreateController
     private $formFactory;
 
     /**
-     * @var TaskCreateHandler
+     * @var TaskEditHandler
      */
     private $handler;
 
@@ -49,17 +49,17 @@ class TaskCreateController
     private $urlGenerator;
 
     /**
-     * TaskCreateController constructor.
+     * TaskEditController constructor.
      *
      * @param Environment $twig
      * @param FormFactoryInterface $formFactory
-     * @param TaskCreateHandler $handler
+     * @param TaskEditHandler $handler
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         Environment           $twig,
         FormFactoryInterface  $formFactory,
-        TaskCreateHandler $handler,
+        TaskEditHandler       $handler,
         UrlGeneratorInterface $urlGenerator
     )
     {
@@ -71,6 +71,7 @@ class TaskCreateController
 
     /**
      * @param Request $request
+     * @param Task $task
      *
      * @return RedirectResponse|Response
      *
@@ -78,24 +79,29 @@ class TaskCreateController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function __invoke(Request $request)
+    public function __invoke(
+        Request $request,
+        Task    $task
+    )
     {
-        $task = new Task();
-
         $form = $this->formFactory->create(TaskType::class, $task)
                                   ->handleRequest($request);
 
-        if ($this->handler->handle($form, $task)){
-            return new RedirectResponse($this->urlGenerator->generate('task_list'));
+        if ($this->handler->handle($form)){
+
+            return new RedirectResponse(
+                $this->urlGenerator->generate('task_list')
+            );
         }
 
         return new Response(
-            $this->twig->render('task/create.html.twig', [
-                'form'=>$form->createView()
+            $this->twig->render('task/edit.html.twig', [
+                'form' => $form->createView(),
+                'task' => $task
             ])
         );
 
-    }
 
+    }
 
 }
