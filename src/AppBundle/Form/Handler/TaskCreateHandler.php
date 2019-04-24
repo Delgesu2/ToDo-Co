@@ -63,6 +63,8 @@ class TaskCreateHandler
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $task->setAuthor($this->tokenStorage->getToken()->getUser());
+
             $this->repository->save($task);
 
             $this->session->getFlashbag()->add('success', 'La tâche a été bien été ajoutée.');

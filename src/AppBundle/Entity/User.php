@@ -39,6 +39,11 @@ class User implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="author", orphanRemoval=false)
+     */
+    private $tasks;
+
     public function getId()
     {
         return $this->id;
