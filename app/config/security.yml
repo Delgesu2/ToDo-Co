@@ -24,6 +24,10 @@ security:
             logout: ~
 
     access_control:
+        - { path: ^/create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/users, roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_USER }
+
+    role_hierarchy:
+            ROLE_ADMIN: ROLE_USER

@@ -85,7 +85,7 @@ class UserCreateController
             ->handleRequest($request);
 
         if ($this->handler->handle($form, $user)){
-            return new RedirectResponse($this->urlGenerator->generate('user_list'));
+            return new RedirectResponse($this->urlGenerator->generate('homepage'));
         }
 
         return new Response(

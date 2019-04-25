@@ -47,7 +47,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string")
      */
-   // private $roles = [];
       private $role;
 
     /**
@@ -112,6 +111,22 @@ class User implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role): void
+    {
+        $this->role = $role;
     }
 
     /**
