@@ -9,6 +9,10 @@ services:
         autoconfigure: true
         public: false
 
+    # makes classes in src/AppBundle available to be used as services
+    AppBundle\:
+        resource: '../../src/AppBundle/*'
+
     AppBundle\Fixtures\UserFixtures:
         tags:
           - { name: 'doctrine.fixture.orm' }
