@@ -19,6 +19,8 @@ class Task
     private $id;
 
     /**
+     * @var \DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     private $createdAt;

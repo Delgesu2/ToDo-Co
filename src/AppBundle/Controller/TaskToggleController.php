@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\Task;
 use AppBundle\Repository\TaskRepository;
@@ -57,6 +58,7 @@ class TaskToggleController
 
     /**
      * @param Task $task
+     * @param Request $request
      *
      * @return RedirectResponse
      */
@@ -67,6 +69,7 @@ class TaskToggleController
 
         $this->session->getFlashBag()->add('success', sprintf('La tâche %s a bien été marquée comme faite.',
                                            $task->getTitle()));
+
 
         return new RedirectResponse(
             $this->urlGenerator->generate('task_list')
