@@ -14,7 +14,7 @@
                     </h4>
                     <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
                     {% if task.author is not null %}
-                    <p>Auteur: {{ task.author.username ?? '' }}</p>
+                    <p>Auteur: {{ task.author.username }}</p>
                     {% endif %}
                     <p>{{ task.content }}</p>
                 </div>
