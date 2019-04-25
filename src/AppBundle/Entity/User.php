@@ -42,51 +42,92 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="Task", mappedBy="author", orphanRemoval=false)
      */
-    private $tasks;
+    private $task;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+   // private $roles = [];
+      private $role;
+
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getUsername()
     {
         return $this->username;
     }
 
+    /**
+     * @param $username
+     */
     public function setUsername($username)
     {
         $this->username = $username;
     }
 
+    /**
+     * @return null|string
+     */
     public function getSalt()
     {
         return null;
     }
 
+    /**
+     * @return string
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
+    /**
+     * @param $password
+     */
     public function setPassword($password)
     {
         $this->password = $password;
     }
 
+    /**
+     * @return mixed
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * @param $email
+     */
     public function setEmail($email)
     {
         $this->email = $email;
     }
 
-    public function getRoles()
+    /**
+     * @return array $role
+     */
+    public function getRoles(): array
     {
-        return array('ROLE_USER');
+        return ['ROLE_USER', $this->role];
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
     }
 
     public function eraseCredentials()

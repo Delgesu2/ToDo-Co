@@ -21,7 +21,7 @@ use Twig\Environment;
 
 /**
  * @Route(
- *     path="/users/create",
+ *     path="/create",
  *     name="user_create",
  *     methods={"POST", "GET"}
  *     )
