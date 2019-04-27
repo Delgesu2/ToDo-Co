@@ -35,25 +35,18 @@ class TaskToggleController
     private $session;
 
     /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    /**
      * TaskToggleController constructor.
      *
      * @param TaskRepository $repository
      * @param SessionInterface $session
-     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         TaskRepository        $repository,
-        SessionInterface      $session,
-        UrlGeneratorInterface $urlGenerator
-    ) {
+        SessionInterface      $session
+    )
+    {
         $this->repository   = $repository;
         $this->session      = $session;
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -62,7 +55,7 @@ class TaskToggleController
      *
      * @return RedirectResponse
      */
-    public function __invoke(Task $task)
+    public function __invoke(Task $task, Request $request)
     {
         $task->toggle(!$task->isDone());
         $this->repository->update();
@@ -70,10 +63,7 @@ class TaskToggleController
         $this->session->getFlashBag()->add('success', sprintf('La tâche %s a bien été marquée comme faite.',
                                            $task->getTitle()));
 
-
-        return new RedirectResponse(
-            $this->urlGenerator->generate('task_list')
-        );
+        return new RedirectResponse($request->headers->get('referer'));
 
     }
 

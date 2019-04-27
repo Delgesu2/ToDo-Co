@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Security\TaskVoter;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\Task;
 use AppBundle\Form\Handler\TaskEditHandler;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
 /**
@@ -72,22 +74,23 @@ class TaskEditController
     /**
      * @param Request $request
      * @param Task $task
+     * @param Security $security
      *
      * @return RedirectResponse|Response
-     *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
     public function __invoke(
         Request $request,
-        Task    $task
+        Task    $task,
+        Security $security
     )
     {
         $form = $this->formFactory->create(TaskType::class, $task)
-                                  ->handleRequest($request);
+            ->handleRequest($request);
 
-        if ($this->handler->handle($form)){
+        if ($this->handler->handle($form)) {
 
             return new RedirectResponse(
                 $this->urlGenerator->generate('task_list')
@@ -100,8 +103,6 @@ class TaskEditController
                 'task' => $task
             ])
         );
-
-
     }
 
 }

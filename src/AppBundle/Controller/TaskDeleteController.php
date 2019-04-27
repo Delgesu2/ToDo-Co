@@ -10,10 +10,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
 use AppBundle\Repository\TaskRepository;
+use AppBundle\Security\TaskVoter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route(
@@ -34,39 +37,42 @@ class TaskDeleteController
     private $session;
 
     /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    /**
      * TaskDeleteController constructor.
      *
      * @param TaskRepository $repository
      * @param SessionInterface $session
-     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         TaskRepository        $repository,
-        SessionInterface      $session,
-        UrlGeneratorInterface $urlGenerator
+        SessionInterface      $session
     ) {
         $this->repository   = $repository;
         $this->session      = $session;
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
      * @param Task $task
+     * @param Security $security
+     * @param Request $request
      *
-     * @return RedirectResponse
+     * @return RedirectResponse|Response
      */
-    public function __invoke(Task $task)
+    public function __invoke(
+        Task     $task,
+        Security $security,
+        Request  $request
+)
     {
-        $this->repository->delete($task);
+        if($security->isGranted(TaskVoter::DEL, $task) === true) {
 
-        $this->session->getFlashbag()->add('success', 'La tâche a bien été supprimée.');
+            $this->repository->delete($task);
 
-        return new RedirectResponse($this->urlGenerator->generate('task_list'));
+            $this->session->getFlashbag()->add('success', 'La tâche a bien été supprimée.');
+
+            return new RedirectResponse($request->headers->get('referer'));
+        }
+
+        return new Response('Suppression de la tâche non autorisée', 403);
     }
 
 }

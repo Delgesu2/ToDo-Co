@@ -42,4 +42,13 @@ class UserRepository extends ServiceEntityRepository
     {
         $this->_em->flush();
     }
+
+    /**
+     * @param $user
+     */
+    public function delete($user)
+    {
+        $this->_em->remove($user);
+        $this->_em->flush();
+    }
 }
