@@ -14,7 +14,6 @@ use AppBundle\Entity\Task;
 use AppBundle\Repository\TaskRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route(
