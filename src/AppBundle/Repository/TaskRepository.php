@@ -56,4 +56,16 @@ class TaskRepository extends ServiceEntityRepository
         $this->_em->remove($task);
         $this->_em->flush();
     }
+
+    /**
+     * @return mixed
+     */
+    public function listQuery()
+    {
+        return $this->createQueryBuilder('tasks')
+            ->getQuery()
+            ->useResultCache(true)
+            ->setResultCacheLifetime(3600)
+            ->getResult();
+    }
 }

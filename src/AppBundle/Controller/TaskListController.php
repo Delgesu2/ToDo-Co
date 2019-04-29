@@ -59,7 +59,7 @@ class TaskListController
         return new Response(
             $this->twig->render(
                 'task/list.html.twig',[
-                    'tasks' => $this->repository->findAll()
+                    'tasks' => $this->repository->listQuery()
                 ])
         );
     }
