@@ -7,15 +7,17 @@
 {% block body %}
 
     <div class="row">
-        <a href="{{ path('task_create') }}" class="btn btn-success">Créer une nouvelle tâche</a>
-        <span>Consulter :</span>
-        <a href="{{ path('task_list') }}" class="btn btn-info">la liste de toutes les tâches</a>
-        <a href="{{ path('tasks_todo') }}" class="btn btn-info">la liste des tâches à faire</a>
-        <a href="{{ path('tasks_done') }}" class="btn btn-info">la liste des tâches terminées</a>
+        <div class="col-md-12">
+            <a href="{{ path('task_create') }}" class="btn btn-success">Créer une nouvelle tâche</a>
+            <span>Consulter :</span>
+            <a href="{{ path('task_list') }}" class="btn btn-info">la liste de toutes les tâches</a>
+            <a href="{{ path('tasks_todo') }}" class="btn btn-info">la liste des tâches à faire</a>
+            <a href="{{ path('tasks_done') }}" class="btn btn-info">la liste des tâches terminées</a>
 
-        {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('user_list') }}" class="btn btn-warning">Consulter la liste des utilisateurs</a>
-        {% endif %}
-
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('user_list') }}" class="btn btn-warning">Consulter la liste des utilisateurs</a>
+            {% endif %}
+        </div>
     </div>
+
 {% endblock %}

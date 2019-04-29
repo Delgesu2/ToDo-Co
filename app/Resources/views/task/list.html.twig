@@ -14,12 +14,15 @@
             liste complète
         {% endif %}
 
+        <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
+
     </h1>
 
-    <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
+
+
     <div class="row">
         {% for task in tasks %}
-        <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="col-sm-4 col-lg-4 col-md-4 btn-bottom">
             <div class="thumbnail">
                 <div class="caption">
                     <h4 class="pull-right">
