@@ -31,7 +31,8 @@
         "swiftmailer/swiftmailer": "^6.2",
         "squizlabs/php_codesniffer": "3.4.2",
         "snc/redis-bundle": "2.1.x-dev",
-        "predis/predis": "1.1.1"
+        "predis/predis": "1.1.1",
+        "phpunit/phpunit": "^8.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.1.7",
