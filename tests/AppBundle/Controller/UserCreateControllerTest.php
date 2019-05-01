@@ -19,7 +19,7 @@ class UserCreateControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/create');
 
         $form = $crawler->selectButton('Ajouter')->form();
-        $form['user[username]'] = 'Lucky Luke';
+        $form['user[username]'] = 'Jeremiah';
         $form['user[password][first]'] = 'motdepasse';
         $form['user[password][second]'] = 'motdepasse';
         $form['user[email]'] = 'courriel@mail.com';
