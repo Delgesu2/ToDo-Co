@@ -14,14 +14,15 @@ class UserEditControllerTest extends WebTestCase
 {
     public function testUserEdit()
     {
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'Paul',
-            'PHP_AUTH_PW'   => 'tralala'
-        ]);
+        $client = static::createClient([]);
 
-        $crawler = $client->request('GET', '/users/6/edit' );
+        $crawler = $client->request(
+            'GET',
+            '/users/6/edit',
+            ['PHP_AUTH_USER' => 'Paul','PHP_AUTH_PW' => 'tralala']
+        );
 
-        $form = $crawler->selectButton('Ajouter')->form();
+        $form = $crawler->selectButton('Modifier')->form();
         $form['user[username]'] = 'Patrick';
         $form['password[first]'] = 'tralala';
         $form['password[second]'] = 'tralala';

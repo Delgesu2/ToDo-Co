@@ -24,7 +24,7 @@ class UserListControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $this->assertStringContainsString(
-            'assertStringContainsString',
+            'Liste des utilisateurs',
             $crawler->filter('h1')->text()
         );
     }
