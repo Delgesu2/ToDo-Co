@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ronsard
- * Date: 01/05/19
- * Time: 14:58
- */
 
 namespace Tests\AppBundle\Controller;
 
@@ -12,14 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserEditControllerTest extends WebTestCase
 {
+    use AuthenticationTrait;
+
     public function testUserEdit()
     {
-        $client = static::createClient([]);
+        $this->logIn();
 
-        $crawler = $client->request(
-            'GET',
-            '/users/6/edit',
-            ['PHP_AUTH_USER' => 'Paul','PHP_AUTH_PW' => 'tralala']
+        $crawler = $this->client->request(
+            'POST',
+            '/users/6/edit'
         );
 
         $form = $crawler->selectButton('Modifier')->form();
@@ -29,8 +24,10 @@ class UserEditControllerTest extends WebTestCase
         $form['user[email]'] = 'adresse@mail.com';
         $form['user_edit[roles]'] = 'ROLE_ADMIN';
 
-        $crawler = $client->followRedirect();
+        $this->client->submit($form);
 
-        $this->assertSame(1, $crawler->filter('html:contains("L\'utilisateur a bien été modifié")')->count());
+        $this->client->followRedirect();
+
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 }

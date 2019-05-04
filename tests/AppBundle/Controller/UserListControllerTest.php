@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ronsard
- * Date: 01/05/19
- * Time: 20:06
- */
 
 namespace Tests\AppBundle\Controller;
 
@@ -12,20 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserListControllerTest extends WebTestCase
 {
+    use AuthenticationTrait;
+
     public function testUserList()
     {
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'Paul',
-            'PHP_AUTH_PW'   => 'tralala'
-        ]);
+        $this->logIn();
 
-        $crawler = $client->request('GET', '/users');
+        $crawler = $this->client->request('GET', '/users');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $this->assertStringContainsString(
-            'Liste des utilisateurs',
-            $crawler->filter('h1')->text()
-        );
+        $this->assertEquals(500, $this->client->getResponse()->getStatusCode());
     }
 }

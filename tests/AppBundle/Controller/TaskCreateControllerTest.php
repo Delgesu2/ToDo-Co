@@ -22,19 +22,17 @@ class TaskCreateControllerTest extends WebTestCase
             ['PHP_AUTH_USER' => 'Paul', 'PHP_AUTH_PW'=> 'tralala']
         );
 
-        $link = $crawler->selectLink('Créer une nouvelle tâche')->link();
-
-        $crawler = $client->click($link);
-
         $form = $crawler->selectButton('Ajouter')->form();
         $form['task[title]'] = 'new task';
         $form['task[content]'] = 'things to do';
 
         $client->submit($form);
 
+        $this->assertSame(1,$crawler->filter('La tâche a été bien été ajoutée.'));
+
         $client->followRedirect();
 
-        $this->assertSame(1,$crawler->filter('La tâche a été bien été ajoutée.'));
+
     }
 
 }
