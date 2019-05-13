@@ -12,22 +12,20 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskEditControllerTest extends WebTestCase
 {
+    use AuthenticationTrait;
+
     public function testTaskEdit()
     {
-        $client = static::createClient();
+        $this->logIn();
 
-        $crawler = $client->request(
-            'GET',
-            '/tasks/6/edit',
-            ['PHP_AUTH_USER' => 'Paul','PHP_AUTH_PW' => 'tralala']
-        );
+        $crawler = $this->client->request('GET','/tasks/6/edit');
 
         $form = $crawler->selectButton('Modifier')->form();
         $form['task[title]'] = 'tâche changée';
         $form['task[content]'] = 'choses à faire';
 
-        $client->submit($form);
-        $crawler = $client->followRedirect();
+        $this->client->submit($form);
+        $crawler = $this->client->followRedirect();
 
         $this->assertStringContainsString(
             'Superbe ! La tâche a bien été modifiée.',

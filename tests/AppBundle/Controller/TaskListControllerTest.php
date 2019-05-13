@@ -12,21 +12,21 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskListControllerTest extends WebTestCase
 {
+    use AuthenticationTrait;
+
     public function testTaskList()
     {
-        $client = static::createClient();
+        $this->logIn();
 
-        $crawler = $client->request(
-            'GET',
-            '/tasks',
-            ['PHP_AUTH_USER' => 'Paul','PHP_AUTH_PW'   => 'tralala']
-            );
+        $crawler = $this->client->request('GET','/tasks');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
 
         $this->assertStringContainsString(
-            'Tâches: liste complète ',
+            'liste complète',
             $crawler->filter('h1')->text());
+
     }
 
 }

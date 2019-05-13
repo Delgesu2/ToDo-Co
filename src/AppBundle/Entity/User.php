@@ -47,7 +47,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string")
      */
-      private $role;
+    private $role;
 
     /**
      * @return mixed

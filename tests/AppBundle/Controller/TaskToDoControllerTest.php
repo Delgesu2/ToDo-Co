@@ -6,20 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskToDoControllerTest extends WebTestCase
 {
+    use AuthenticationTrait;
+
     public function testTaskToDo()
     {
-        $client = static::createClient();
+        $this->logIn();
 
-        $crawler = $client->request(
-            'GET',
-            '/taskstodo',
-            ['PHP_AUTH_USER' => 'Paul','PHP_AUTH_PW'   => 'tralala']
-        );
+        $crawler = $this->client->request('GET','/taskstodo');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
 
         $this->assertStringContainsString(
-            'Tâches: à faire',
+            'à faire',
             $crawler->filter('h1')->text());
+
     }
 }

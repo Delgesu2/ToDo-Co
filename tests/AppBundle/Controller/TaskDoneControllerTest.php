@@ -12,21 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskDoneControllerTest extends WebTestCase
 {
+    use AuthenticationTrait;
+
     public function testTaskDone()
     {
-        $client = static::createClient();
+        $this->logIn();
 
-        $crawler = $client->request(
-            'GET',
-            '/tasksdone',
-            ['PHP_AUTH_USER' => 'Paul','PHP_AUTH_PW'   => 'tralala']
-        );
+        $crawler = $this->client->request('GET','/tasksdone');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $this->assertStringContainsString(
-            'Tâches: déjà faites',
-            $crawler->filter('h1')->text());
+        $this->assertSame(1, $crawler->filter('html:contains("déjà faites")')->count());
     }
 
 }

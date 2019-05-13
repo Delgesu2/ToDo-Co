@@ -12,16 +12,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserDeleteControllerTest extends WebTestCase
 {
+    use AuthenticationTrait;
+
     public function testUserDelete()
     {
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'Paul',
-            'PHP_AUTH_PW'   => 'tralala'
-        ]);
+        $this->logIn();
 
-        $client->request('GET', '/users/6/delete');
+        $crawler = $this->client->request('GET', '/users/6/delete');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 
 }

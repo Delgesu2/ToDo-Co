@@ -3,6 +3,7 @@
 namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Tests\AppBundle\Controller\AuthenticationTrait;
 
 class UserListControllerTest extends WebTestCase
 {
@@ -14,6 +15,6 @@ class UserListControllerTest extends WebTestCase
 
         $crawler = $this->client->request('GET', '/users');
 
-        $this->assertEquals(500, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 }

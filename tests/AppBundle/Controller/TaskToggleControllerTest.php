@@ -12,21 +12,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskToggleControllerTest extends WebTestCase
 {
-    public function testTaskToggleDone()
+    use AuthenticationTrait;
+    
+    public function testTaskToggle()
     {
-        $client = static::createClient();
+        $this->logIn();
 
-        $crawler = $client->request('GET', '/tasks/1/toggle');
-        $client->followRedirect();
+        $this->client->request('GET', '/tasks/5/toggle');
 
-        $successMessage = 'Superbe ! La tâche 1 a bien été marquée comme faite.';
-        $this->assertContains($successMessage, $crawler->filter('div.alert-success')->text());
-
-    }
-
-    public function testTaskToggleToDo()
-    {
-        $client = static::createClient();
-
+        $this->assertEquals('referer', $this->client->getResponse()->getStatusCode());
     }
 }

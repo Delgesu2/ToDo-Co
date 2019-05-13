@@ -46,7 +46,7 @@ class TaskEditHandler
      */
     public function handle(FormInterface $form)
     {
-        if ($form->isValid() && $form->isSubmitted()){
+        if ($form->isSubmitted() && $form->isValid()){
 
             $this->repository->update();
 

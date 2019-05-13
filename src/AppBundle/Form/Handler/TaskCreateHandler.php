@@ -67,7 +67,7 @@ class TaskCreateHandler
 
             $this->repository->save($task);
 
-            $this->session->getFlashbag()->add('success', 'La tâche a été bien été ajoutée.');
+            $this->session->getFlashbag()->add('success', 'La tâche a été bien ajoutée.');
 
             return true;
 

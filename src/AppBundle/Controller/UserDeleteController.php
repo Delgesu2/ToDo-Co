@@ -55,7 +55,7 @@ class UserDeleteController
     {
         $this->repository->delete($user);
 
-        $this->session->getFlashbag()->add('Success', 'Le compte de l\'utilisateur a bien été supprimé.');
+        $this->session->getFlashbag()->add('success', 'Le compte de l\'utilisateur a bien été supprimé.');
 
         return new  RedirectResponse(
             $this->urlGenerator->generate('user_list')

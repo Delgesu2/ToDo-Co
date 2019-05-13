@@ -6,12 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskDeleteControllerTest extends WebTestCase
 {
+    use AuthenticationTrait;
+
     public function testTaskDelete()
     {
-        $client = static::createClient();
+        $this->logIn();
 
-        $client->request('GET', '/tasks/{id}/delete');
+        $this->client->request('GET', '/tasks/8/delete');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
     }
 }

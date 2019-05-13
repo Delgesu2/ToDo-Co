@@ -3,6 +3,7 @@
 namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Tests\AppBundle\Controller\AuthenticationTrait;
 
 class UserEditControllerTest extends WebTestCase
 {
@@ -12,17 +13,15 @@ class UserEditControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $crawler = $this->client->request(
-            'POST',
-            '/users/6/edit'
-        );
+        $crawler = $this->client->request('POST','/users/8/edit');
 
-        $form = $crawler->selectButton('Modifier')->form();
-        $form['user[username]'] = 'Patrick';
-        $form['password[first]'] = 'tralala';
-        $form['password[second]'] = 'tralala';
-        $form['user[email]'] = 'adresse@mail.com';
-        $form['user_edit[roles]'] = 'ROLE_ADMIN';
+        $form = $crawler->filter("form[name=user]")->form([
+            "user[username]"         => "Patrick",
+            "user[password][first]"  => "motdepasse",
+            "user[password][second]" => "motdepasse",
+            "user[email]"            => "super@mail.com",
+            "user[role]"             => "ROLE_ADMIN"
+        ]);
 
         $this->client->submit($form);
 

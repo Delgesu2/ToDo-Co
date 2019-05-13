@@ -27,7 +27,6 @@ class TaskType extends AbstractType
             ->add('title', TextType::class )
 
             ->add('content', TextareaType::class)
-            //->add('author') ===> must be the user authenticated
         ;
     }
 }
