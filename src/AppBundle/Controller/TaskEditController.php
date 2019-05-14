@@ -73,7 +73,6 @@ class TaskEditController
 
     /**
      * @param Request $request
-     * @param Task $task
      * @param Security $security
      *
      * @return RedirectResponse|Response
@@ -83,8 +82,7 @@ class TaskEditController
      */
     public function __invoke(
         Request $request,
-        Task    $task,
-        Security $security
+        Task    $task
     )
     {
         $form = $this->formFactory->create(TaskType::class, $task)
