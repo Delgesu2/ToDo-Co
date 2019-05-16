@@ -12,15 +12,16 @@ namespace AppBundle\Form\Handler;
 use AppBundle\Entity\User;
 use AppBundle\Repository\UserRepository;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserCreateHandler
 {
     /**
-     * @var SessionInterface
+     * @var FlashBagInterface
      */
-    private $session;
+    private $flashBag;
+
 
     /**
      * @var UserRepository
@@ -35,16 +36,16 @@ class UserCreateHandler
     /**
      * UserCreateHandler constructor.
      *
-     * @param SessionInterface $session
+     * @param FlashBagInterface $flashBag
      * @param UserRepository $repository
      * @param UserPasswordEncoderInterface $passwordEncoder
      */
     public function __construct(
-        SessionInterface             $session,
+        FlashBagInterface            $flashBag,
         UserRepository               $repository,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
-        $this->session         = $session;
+        $this->flashBag        = $flashBag;
         $this->repository      = $repository;
         $this->passwordEncoder = $passwordEncoder;
     }
@@ -70,7 +71,7 @@ class UserCreateHandler
 
             $this->repository->save($user);
 
-            $this->session->getFLashbag()->add('access', "L'utilisateur a bien été ajouté.");
+            $this->flashBag->add('success', "L'utilisateur a bien été ajouté.");
 
             return true;
         }

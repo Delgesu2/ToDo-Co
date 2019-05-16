@@ -10,14 +10,15 @@ namespace AppBundle\Form\Handler;
 
 use AppBundle\Repository\TaskRepository;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class TaskEditHandler
 {
     /**
-     * @var SessionInterface
+     * @var FlashBagInterface
      */
-    private $session;
+    private $flashBag;
 
     /**
      * @var TaskRepository
@@ -27,15 +28,15 @@ class TaskEditHandler
     /**
      * TaskEditHandler constructor.
      *
-     * @param SessionInterface $session
-     * @param TaskRepository $repository
+     * @param FlashBagInterface $flashBag
+     * @param TaskRepository    $repository
      */
     public function __construct(
-        SessionInterface $session,
-        TaskRepository   $repository
+        FlashBagInterface $flashBag,
+        TaskRepository    $repository
     )
     {
-        $this->session    = $session;
+        $this->flashBag   = $flashBag;
         $this->repository = $repository;
     }
 
@@ -50,7 +51,7 @@ class TaskEditHandler
 
             $this->repository->update();
 
-            $this->session->getFlashbag()->add('success', 'La tâche a bien été modifiée.');
+            $this->flashBag->add('success', 'La tâche a bien été modifiée.');
 
             return true;
         }

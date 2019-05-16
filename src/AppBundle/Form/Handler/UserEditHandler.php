@@ -12,15 +12,15 @@ namespace AppBundle\Form\Handler;
 use AppBundle\Entity\User;
 use AppBundle\Repository\UserRepository;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserEditHandler
 {
     /**
-     * @var SessionInterface
+     * @var FlashBagInterface
      */
-    private $session;
+    private $flashBag;
 
     /**
      * @var UserRepository
@@ -35,16 +35,16 @@ class UserEditHandler
     /**
      * UserEditHandler constructor.
      *
-     * @param SessionInterface $session
+     * @param FlashBagInterface $flashBag
      * @param UserRepository $repository
      * @param UserPasswordEncoderInterface $passwordEncoder
      */
     public function __construct(
-        SessionInterface             $session,
+        FlashBagInterface            $flashBag,
         UserRepository               $repository,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
-        $this->session         = $session;
+        $this->flashBag        = $flashBag;
         $this->repository      = $repository;
         $this->passwordEncoder = $passwordEncoder;
     }
@@ -69,7 +69,7 @@ class UserEditHandler
 
             $this->repository->update();
 
-            $this->session->getFlashbag()->add('success', "L'utilisateur a bien été modifié");
+            $this->flashBag->add('success', "L'utilisateur a bien été modifié.");
 
             return true;
         }

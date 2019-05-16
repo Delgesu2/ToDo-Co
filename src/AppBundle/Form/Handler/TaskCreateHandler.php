@@ -12,15 +12,15 @@ namespace AppBundle\Form\Handler;
 use AppBundle\Entity\Task;
 use AppBundle\Repository\TaskRepository;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class TaskCreateHandler
 {
     /**
-     * @var SessionInterface
+     * @var FlashBagInterface
      */
-    private $session;
+    private $flashBag;
 
     /**
      * @var TaskRepository
@@ -35,18 +35,18 @@ class TaskCreateHandler
     /**
      * TaskCreateHandler constructor.
      *
-     * @param SessionInterface $session
+     * @param FlashBagInterface $flashBag
      * @param TaskRepository $repository
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
-        SessionInterface      $session,
+        FlashBagInterface     $flashBag,
         TaskRepository        $repository,
         TokenStorageInterface $tokenStorage
     ) {
-        $this->session      = $session;
-        $this->repository   = $repository;
-        $this->tokenStorage = $tokenStorage;
+        $this->flashBag = $flashBag;
+        $this->repository        = $repository;
+        $this->tokenStorage      = $tokenStorage;
     }
 
 
@@ -67,7 +67,7 @@ class TaskCreateHandler
 
             $this->repository->save($task);
 
-            $this->session->getFlashbag()->add('success', 'La tâche a été bien ajoutée.');
+            $this->flashBag->add('success', 'La tâche a bien été ajoutée.');
 
             return true;
 
