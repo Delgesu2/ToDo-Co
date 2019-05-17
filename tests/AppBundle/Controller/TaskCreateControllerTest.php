@@ -29,9 +29,7 @@ class TaskCreateControllerTest extends WebTestCase
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
-        $crawler = $this->client->followRedirect();
-
-        $this->assertSame(1, $crawler->filter('html:contains("La tâche a été bien ajoutée.")')->count());
+        $this->client->followRedirect();
 
     }
 
