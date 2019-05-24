@@ -13,7 +13,7 @@ class UserListControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $crawler = $this->client->request('GET', '/users');
+        $this->client->request('GET', '/users');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }

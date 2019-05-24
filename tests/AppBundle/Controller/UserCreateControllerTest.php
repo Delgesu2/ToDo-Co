@@ -6,25 +6,24 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserCreateControllerTest extends WebTestCase
 {
-    use AuthenticationTrait;
-
     public function testUserCreate()
     {
-        $this->logIn();
+        $client = static::createClient();
 
-        $crawler = $this->client->request('GET', '/create');
+        $crawler = $client->request('GET', '/create');
 
         $form = $crawler->selectButton('Ajouter')->form();
-        $form['user[username]'] = 'Rachid';
+        $form['user[username]'] = 'Johann';
         $form['user[password][first]'] = 'motdepasse';
         $form['user[password][second]'] = 'motdepasse';
-        $form['user[email]'] = 'rachid@mail.com';
+        $form['user[email]'] = 'johann@mail.com';
         $form['user[role]'] = 'ROLE_ADMIN';
-        $this->client->submit($form);
 
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $client->submit($form);
 
-        $this->client->followRedirects();
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+
+        $client->followRedirects();
     }
 
 }

@@ -18,10 +18,10 @@ class TaskEditControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $crawler = $this->client->request('GET','/tasks/8/edit');
+        $crawler = $this->client->request('GET','/tasks/5/edit');
 
         $form = $crawler->selectButton('Modifier')->form();
-        $form['task[title]'] = 'tâche changée';
+        $form['task[title]'] = 'tâche changée encore';
         $form['task[content]'] = 'choses à faire';
 
         $this->client->submit($form);

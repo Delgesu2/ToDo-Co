@@ -69,7 +69,7 @@ class UserEditHandler
 
             $this->repository->update();
 
-            $this->flashBag->add('success', "L'utilisateur a bien été modifié.");
+            $this->flashBag->add('success', 'L\'utilisateur a bien été modifié.');
 
             return true;
         }

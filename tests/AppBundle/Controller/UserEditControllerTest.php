@@ -13,10 +13,10 @@ class UserEditControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $crawler = $this->client->request('POST','/users/8/edit');
+        $crawler = $this->client->request('GET','/users/10/edit');
 
         $form = $crawler->filter("form[name=user]")->form([
-            "user[username]"         => "Patrick",
+            "user[username]"         => "Pat",
             "user[password][first]"  => "motdepasse",
             "user[password][second]" => "motdepasse",
             "user[email]"            => "super@mail.com",

@@ -18,7 +18,7 @@ class UserDeleteControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $crawler = $this->client->request('GET', '/users/6/delete');
+        $this->client->request('GET', "/users/12/delete");
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }

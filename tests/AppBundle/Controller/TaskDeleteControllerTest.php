@@ -12,9 +12,14 @@ class TaskDeleteControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $this->client->request('GET', '/tasks/8/delete');
+        $this->client->request(
+            'GET',
+            '/tasks/34/delete',
+            [],
+            [],
+            ['HTTP_REFERER'=>'/tasks']
+        );
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-
     }
 }

@@ -18,8 +18,14 @@ class TaskToggleControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $this->client->request('GET', '/tasks/5/toggle');
+        $this->client->request(
+            'GET',
+            '/tasks/5/toggle',
+            [],
+            [],
+            ['HTTP_REFERER'=>'/tasks']
+        );
 
-        $this->assertEquals('referer', $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('302', $this->client->getResponse()->getStatusCode());
     }
 }

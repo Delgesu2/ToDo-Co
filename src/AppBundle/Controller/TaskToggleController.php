@@ -63,7 +63,6 @@ class TaskToggleController
                                            $task->getTitle()));
 
         return new RedirectResponse($request->headers->get('referer'));
-
     }
 
 }
