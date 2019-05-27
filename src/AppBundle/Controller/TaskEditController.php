@@ -88,7 +88,7 @@ class TaskEditController
         $form = $this->formFactory->create(TaskType::class, $task)
             ->handleRequest($request);
 
-        if ($this->handler->handle($form)) {
+        if ($this->handler->handle($form, $task)) {
 
             return new RedirectResponse(
                 $this->urlGenerator->generate('task_list')

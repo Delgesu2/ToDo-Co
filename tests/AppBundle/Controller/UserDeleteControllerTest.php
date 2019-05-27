@@ -16,7 +16,7 @@ class UserDeleteControllerTest extends WebTestCase
 
     public function testUserDelete()
     {
-        $this->logIn();
+        $this->logIn("ROLE_ADMIN");
 
         $this->client->request('GET', "/users/12/delete");
 

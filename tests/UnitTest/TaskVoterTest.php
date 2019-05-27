@@ -101,4 +101,9 @@ class TaskVoterTest extends TestCase
         $this->expectException(\LogicException::class);
         $this->voter->voteOnAttribute("fail", new Task(), $token);
     }
+
+    public function testCanDelete()
+    {
+
+    }
 }

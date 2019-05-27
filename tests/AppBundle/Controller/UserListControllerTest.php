@@ -11,7 +11,7 @@ class UserListControllerTest extends WebTestCase
 
     public function testUserList()
     {
-        $this->logIn();
+        $this->logIn("ROLE_ADMIN");
 
         $this->client->request('GET', '/users');
 

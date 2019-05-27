@@ -16,7 +16,7 @@ trait AuthenticationTrait
      */
     protected $client;
 
-    protected function logIn()
+    protected function logIn(string $role = "ROLE_USER")
     {
         $this->client = static::createClient();
 
@@ -29,7 +29,7 @@ trait AuthenticationTrait
         $firewallName = 'main';
         $firewallContext = 'main';
 
-        $user = $em->getRepository(User::class)->findOneBy([]);
+        $user = $em->getRepository(User::class)->findOneBy(["role" => $role]);
 
         $token = new UsernamePasswordToken(
             $user,

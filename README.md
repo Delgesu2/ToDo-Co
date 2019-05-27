@@ -21,17 +21,15 @@ installer MAMP (ou WAMP pour Windows, ou LAMP pour Linux).
 2.  Exécuter `php bin/console doctrine:database:create` et 
 `php bin/console doctrine:schema:update --force` pour créer la base de données.
 
-3.  Installer une dépendance de fixture comme AliceBundle: `composer require --dev hautelook/alice-bundle `
+3.  Exécuter `php bin/console doctrine:fixtures:load` pour charger les *fixtures*.
 
-4.  Exécuter `php bin/console hautelook:fixtures:load` pour charger les *fixtures*.
+4.  Installer Redis: `composer require snc/redis-bundle`
 
-5.  Installer Redis: `composer require snc/redis-bundle`
+5.  Lancer le serveur Redis: `redis-server`
 
-6.  Lancer le serveur Redis: `redis-server`
-
-7.  Lancer le serveur Apache
+6.  Lancer le serveur Apache
 
 Sur un serveur distant, faire pointer le serveur vers le dossier /web
-8.  Taper `composer require symfony/apache-pack`
+7.  Taper `composer require symfony/apache-pack`
 
-9.  Dans la console, taper `php bin/console cache:clear`
+8.  Dans la console, taper `php bin/console cache:clear`

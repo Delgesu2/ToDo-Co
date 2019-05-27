@@ -11,9 +11,9 @@ class UserEditControllerTest extends WebTestCase
 
     public function testUserEdit()
     {
-        $this->logIn();
+        $this->logIn("ROLE_ADMIN");
 
-        $crawler = $this->client->request('GET','/users/10/edit');
+        $crawler = $this->client->request('GET','/users/11/edit');
 
         $form = $crawler->filter("form[name=user]")->form([
             "user[username]"         => "Pat",
@@ -25,8 +25,7 @@ class UserEditControllerTest extends WebTestCase
 
         $this->client->submit($form);
 
-        $this->client->followRedirect();
-
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
+
 }

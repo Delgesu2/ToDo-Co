@@ -25,6 +25,4 @@ class SecurityControllerTest extends WebTestCase
         static::assertSame(1, $crawler->filter('html:contains("Mot de passe")')->count());
     }
 
-
-
 }
