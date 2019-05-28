@@ -68,6 +68,7 @@ class TaskVoterTest extends TestCase
     {
         $token = $this->createMock(TokenInterface::class);
         $token->method("getUser")->willReturn($user);
+
         $this->assertEquals($vote, $this->voter->voteOnAttribute($attribute, $subject, $token));
     }
 

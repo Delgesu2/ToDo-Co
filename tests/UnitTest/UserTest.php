@@ -21,16 +21,13 @@ class UserTest extends TestCase
         $user->setPassword('password');
         $user->setEmail('test@email.com');
         $user->setRole('ROLE_ADMIN');
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_USER','ROLE_ADMIN']);
 
 
         $this->assertEquals('testname', $user->getUsername());
         $this->assertEquals('password', $user->getPassword());
         $this->assertEquals('test@email.com', $user->getEmail());
         $this->assertEquals('ROLE_ADMIN', $user->getRole());
-        $this->assertEquals(['ROLE_USER'], $user->getRoles());
-        $this->assertEquals(null, $user->eraseCredentials());
-
+        $this->assertEquals(['ROLE_USER','ROLE_ADMIN'], $user->getRoles());
     }
-
 }

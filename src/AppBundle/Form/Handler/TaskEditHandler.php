@@ -56,15 +56,19 @@ class TaskEditHandler
      * @param Task $task
      *
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     public function handle(FormInterface $form, Task $task)
     {
         if ($form->isSubmitted() && $form->isValid()){
 
             // If anonymous task
+            // @codeCoverageIgnore Start
             if (is_null($task->getAuthor())) {
                 $task->setAuthor($this->tokenStorage->getToken()->getUser());
             }
+            // @codeCoverageIgnore Stop
 
             $this->repository->update();
 

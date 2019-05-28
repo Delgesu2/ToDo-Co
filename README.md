@@ -18,18 +18,20 @@ installer MAMP (ou WAMP pour Windows, ou LAMP pour Linux).
 
 1.  Exécuter la commande `composer install` pour mettre à jour les dépendances.
 
-2.  Exécuter `php bin/console doctrine:database:create` et 
+2. Configurer la base de données dans `parameters.yml`.
+
+3. Modifier `redis.yml`, notamment le dsn. 
+
+4.  Exécuter `php bin/console doctrine:database:create` et 
 `php bin/console doctrine:schema:update --force` pour créer la base de données.
 
-3.  Exécuter `php bin/console doctrine:fixtures:load` pour charger les *fixtures*.
+5.  Exécuter `php bin/console doctrine:fixtures:load` pour charger les *fixtures*.
 
-4.  Installer Redis: `composer require snc/redis-bundle`
+6.  Lancer le serveur Redis: `redis-server`
 
-5.  Lancer le serveur Redis: `redis-server`
-
-6.  Lancer le serveur Apache
+7.  Lancer le serveur Apache
 
 Sur un serveur distant, faire pointer le serveur vers le dossier /web
-7.  Taper `composer require symfony/apache-pack`
+8.  Taper `composer require symfony/apache-pack`
 
-8.  Dans la console, taper `php bin/console cache:clear`
+9.  Dans la console, taper `php bin/console cache:clear`
