@@ -12,15 +12,16 @@ Projet n°8 : Améliorez une application existante !
 +   Symfony 3.4
 
 ##Installation
-Pour installer le projet, vous devez le cloner ou le télécharger. 
+Pour installer le projet, vous devez le cloner ou le télécharger:
+`git@github.com:Delgesu2/ToDo-Co.git`
 Pour le faire tourner sur votre machine en local, vous pouvez
 installer MAMP (ou WAMP pour Windows, ou LAMP pour Linux).
 
 1.  Exécuter la commande `composer install` pour mettre à jour les dépendances.
 
-2. Configurer la base de données dans `parameters.yml`.
+2. Configurer la base de données dans `app/config/parameters.yml`. Le modèle est `app/config/parameters.yml.dist`
 
-3. Modifier `redis.yml`, notamment le dsn. 
+3. Modifier `app/config/redis.yml`, notamment le dsn. 
 
 4.  Exécuter `php bin/console doctrine:database:create` et 
 `php bin/console doctrine:schema:update --force` pour créer la base de données.
