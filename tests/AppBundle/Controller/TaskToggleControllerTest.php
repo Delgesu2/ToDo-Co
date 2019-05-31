@@ -8,6 +8,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskToggleControllerTest extends WebTestCase
@@ -18,9 +19,11 @@ class TaskToggleControllerTest extends WebTestCase
     {
         $this->logIn();
 
+        $task = $this->entityManager->getRepository(Task::class)->findOneByAuthor($this->user);
+
         $this->client->request(
             'GET',
-            '/tasks/5/toggle',
+            '/tasks/'.$task->getId().'/toggle',
             [],
             [],
             ['HTTP_REFERER'=>'/tasks']

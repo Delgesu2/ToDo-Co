@@ -8,6 +8,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserDeleteControllerTest extends WebTestCase
@@ -18,7 +19,9 @@ class UserDeleteControllerTest extends WebTestCase
     {
         $this->logIn("ROLE_ADMIN");
 
-        $this->client->request('GET', "/users/12/delete");
+        $user = $this->entityManager->getRepository(User::class)->findOneBy([]);
+
+        $this->client->request('GET', "/users/".$user->getId()."/delete");
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }

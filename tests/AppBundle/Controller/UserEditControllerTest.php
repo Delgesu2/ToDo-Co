@@ -2,6 +2,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tests\AppBundle\Controller\AuthenticationTrait;
 
@@ -13,7 +14,9 @@ class UserEditControllerTest extends WebTestCase
     {
         $this->logIn("ROLE_ADMIN");
 
-        $crawler = $this->client->request('GET','/users/11/edit');
+        $user = $this->entityManager->getRepository(User::class)->findOneBy([]);
+
+        $crawler = $this->client->request('GET','/users/'.$user->getId().'/edit');
 
         $form = $crawler->filter("form[name=user]")->form([
             "user[username]"         => "Pat",

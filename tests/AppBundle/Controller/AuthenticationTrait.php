@@ -16,6 +16,16 @@ trait AuthenticationTrait
      */
     protected $client;
 
+    /**
+     * @var User
+     */
+    protected $user;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
     protected function logIn(string $role = "ROLE_USER")
     {
         $this->client = static::createClient();
@@ -24,18 +34,18 @@ trait AuthenticationTrait
         $session = $this->client->getContainer()->get('session');
 
         /** @var EntityManagerInterface $em */
-        $em = $this->client->getContainer()->get('doctrine.orm.entity_manager');
+        $this->entityManager = $this->client->getContainer()->get('doctrine.orm.entity_manager');
 
         $firewallName = 'main';
         $firewallContext = 'main';
 
-        $user = $em->getRepository(User::class)->findOneBy(["role" => $role]);
+        $this->user = $this->entityManager->getRepository(User::class)->findOneBy(["role" => $role]);
 
         $token = new UsernamePasswordToken(
-            $user,
+            $this->user,
             '',
             $firewallName,
-            $user->getRoles()
+            $this->user->getRoles()
         );
 
         $session->set('_security_'.$firewallContext, serialize($token));

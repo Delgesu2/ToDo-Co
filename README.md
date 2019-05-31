@@ -33,6 +33,7 @@ installer MAMP (ou WAMP pour Windows, ou LAMP pour Linux).
 7.  Lancer le serveur Apache
 
 Sur un serveur distant, faire pointer le serveur vers le dossier /web
+
 8.  Taper `composer require symfony/apache-pack`
 
 9.  Dans la console, taper `php bin/console cache:clear`

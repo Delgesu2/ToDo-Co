@@ -8,6 +8,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskEditControllerTest extends WebTestCase
@@ -18,7 +19,9 @@ class TaskEditControllerTest extends WebTestCase
     {
         $this->logIn();
 
-        $crawler = $this->client->request('GET','/tasks/5/edit');
+        $task = $this->entityManager->getRepository(Task::class)->findOneByAuthor($this->user);
+
+        $crawler = $this->client->request('GET','/tasks/'.$task->getId().'/edit');
 
         $form = $crawler->selectButton('Modifier')->form();
         $form['task[title]'] = 'tâche changée encore';

@@ -57,6 +57,8 @@ class TaskVoterTest extends TestCase
     }
 
     /**
+     * @dataProvider provideVoteOnAttributeData
+     *
      * @param string $attribute
      * @param $subject
      * @param $user
@@ -103,8 +105,4 @@ class TaskVoterTest extends TestCase
         $this->voter->voteOnAttribute("fail", new Task(), $token);
     }
 
-    public function testCanDelete()
-    {
-
-    }
 }

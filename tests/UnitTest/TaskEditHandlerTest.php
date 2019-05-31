@@ -9,6 +9,7 @@
 namespace Tests\UnitTest;
 
 use AppBundle\Entity\Task;
+use AppBundle\Entity\User;
 use AppBundle\Form\Handler\TaskEditHandler;
 use AppBundle\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
@@ -51,8 +52,12 @@ class TaskEditHandlerTest extends TestCase
         $flashBag = new FlashBag();
 
         $taskRepository = $this->createMock(TaskRepository::class);
-        $tokenStorageInterface = $this->createMock(TokenStorageInterface::class);
+
         $tokenInterface = $this->createMock(TokenInterface::class);
+        $tokenInterface->method("getUser")->willReturn(new User());
+
+        $tokenStorageInterface = $this->createMock(TokenStorageInterface::class);
+        $tokenStorageInterface->method("getToken")->willReturn($tokenInterface);
 
         $handler = new TaskEditHandler($flashBag, $taskRepository, $tokenStorageInterface);
 

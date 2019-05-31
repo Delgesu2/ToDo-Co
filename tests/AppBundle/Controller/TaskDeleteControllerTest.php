@@ -2,6 +2,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskDeleteControllerTest extends WebTestCase
@@ -12,9 +13,11 @@ class TaskDeleteControllerTest extends WebTestCase
     {
         $this->logIn();
 
+        $task = $this->entityManager->getRepository(Task::class)->findOneByAuthor($this->user);
+
         $this->client->request(
             'GET',
-            '/tasks/35/delete',
+            '/tasks/'.$task->getId().'/delete',
             [],
             [],
             ['HTTP_REFERER'=>'/tasks']
