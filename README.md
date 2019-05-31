@@ -1,5 +1,8 @@
 ToDoList
 ========
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/39c7f51f19ab45af9fba2fb15905a707)](https://app.codacy.com/app/Delgesu2/ToDo-Co?utm_source=github.com&utm_medium=referral&utm_content=Delgesu2/ToDo-Co&utm_campaign=Badge_Grade_Dashboard)
+
 ToDo-Co
 -------
 Projet n°8 : Améliorez une application existante !
