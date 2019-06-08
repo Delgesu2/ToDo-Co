@@ -14,29 +14,28 @@ Projet n°8 : Améliorez une application existante !
 +   MySQL
 +   Symfony 3.4
 
+##Adresse du site en démonstration 
+https://p8todo.devxdemo.eu
+
 ##Installation
 Pour installer le projet, vous devez le cloner ou le télécharger:
-`git@github.com:Delgesu2/ToDo-Co.git`
+SSH:`git@github.com:Delgesu2/ToDo-Co.git` ou HTTPS:`https://github.com/Delgesu2/ToDo-Co.git`
 Pour le faire tourner sur votre machine en local, vous pouvez
 installer MAMP (ou WAMP pour Windows, ou LAMP pour Linux).
 
 1.  Exécuter la commande `composer install` pour mettre à jour les dépendances.
 
 2. Configurer la base de données dans `app/config/parameters.yml`. Le modèle est `app/config/parameters.yml.dist`
+Le mot de passe de la base de données est celui attribué à l'utilisateur désigné.
 
 3. Modifier `app/config/redis.yml`, notamment le dsn. 
 
-4.  Exécuter `php bin/console doctrine:database:create` et 
-`php bin/console doctrine:schema:update --force` pour créer la base de données.
+4.  Exécuter `php bin/console doctrine:database:create` et `php bin/console doctrine:schema:update --force` pour créer la base de données.
 
 5.  Exécuter `php bin/console doctrine:fixtures:load` pour charger les *fixtures*.
 
-6.  Lancer le serveur Redis: `redis-server`
+6.  Faire pointer le serveur vers le dossier /web
 
-7.  Lancer le serveur Apache
+7.  Taper `composer require symfony/apache-pack`
 
-Sur un serveur distant, faire pointer le serveur vers le dossier /web
-
-8.  Taper `composer require symfony/apache-pack`
-
-9.  Dans la console, taper `php bin/console cache:clear`
+8.  Dans la console, taper `php bin/console cache:clear --env prod`
