@@ -36,6 +36,8 @@ Le mot de passe de la base de données est celui attribué à l'utilisateur dés
 
 6.  Faire pointer le serveur vers le dossier /web
 
-7.  Taper `composer require symfony/apache-pack`
+7. Activer Redis pour un déploiement sur un serveur distant (hébergeur) ou taper `redis-server` en local.
 
-8.  Dans la console, taper `php bin/console cache:clear --env prod`
+8.  Taper `composer require symfony/apache-pack`
+
+9.  Dans la console, taper `php bin/console cache:clear --env prod`
